@@ -28,7 +28,7 @@ class RegistrationApiView(generics.CreateAPIView):
 
             return Response(response, status=status_code)
 
-class LoginView(generics.CreateAPIView):
+class LoginApiView(generics.CreateAPIView):
     serializer_class = LoginSerializer
     permission_classes = (AllowAny, )
 
