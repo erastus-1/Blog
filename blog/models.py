@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.utils import timezone
 from django.contrib.auth.models import *
 
 
@@ -47,6 +49,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     photo = models.ImageField(blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    created_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
 
 
     USERNAME_FIELD = 'email'
