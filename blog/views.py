@@ -42,7 +42,9 @@ class LoginView(generics.CreateAPIView):
             response = {
                 'success': True,
                 'statusCode': status_code,
-                'message': 'You are successfully Loggedin',
+                'message': 'User logged in successfully',
+                'access': serializer.data['access'],
+                'refresh': serializer.data['refresh'],
                 'authenticatedUser': {
                     'email': serializer.data['email'],
                 }

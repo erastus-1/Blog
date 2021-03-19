@@ -1,7 +1,9 @@
-from rest_framework import serializers
+from django.contrib.auth.models import update_last_login
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import authenticate
-from .models import User
+from rest_framework import serializers
+from .models import *
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -58,24 +60,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
 
-    email = serializers.EmailField( required=True,
-        allow_null=False,
-        error_messages={
-            'required': "This field is required.",
-        }
-    )
-    password = serializers.RegexField(
-        regex=("^(?=.{8,}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*"),
-        max_length=30,
-        required=True,
-        allow_null=False,
-        write_only=True,
-        error_messages={
-            'required': "This field is required.",
-            'max_length': 'Password cannot be more than 30 characters',
-        }
-        )
-    
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=128, write_only=True)
+    access = serializers.CharField(read_only=True)
+    refresh = serializers.CharField(read_only=True)
+
     def create(self, validated_date):
         pass
 
@@ -88,4 +77,19 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(email=email, password=password)
         user.save()
 
-        return data
+        if user is None:
+            raise serializers.ValidationError("Invalid login credentials")
+        try:
+            refresh = RefreshToken.for_user(user)
+            refresh_token = str(refresh)
+            access_token = str(refresh.access_token)
+            update_last_login(None, user)
+            validation = {
+                'access': access_token,
+                'refresh': refresh_token,
+                'email': user.email,
+            }
+            return validation
+            
+        except AuthUser.DoesNotExist:
+            raise serializers.ValidationError("Invalid login credentials")
