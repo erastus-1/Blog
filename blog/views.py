@@ -12,21 +12,21 @@ class RegistrationApiView(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
 
     def post(self, request):
-        user_data = request.data
+        serializer = self.serializer_class(data=request.data)
+        valid = serializer.is_valid(raise_exception=True)
 
-        serializer = self.serializer_class(data=user_data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        status_code = status.HTTP_201_CREATED
+        if valid:
+            serializer.save()
+            status_code = status.HTTP_201_CREATED
 
-        return_message = {
-            "success": True,
-            "statusCode": status_code,
-            "message": "User successfully registered!",
-            "data": serializer.data
-        }
+            response = {
+                'success': True,
+                'statusCode': status_code,
+                'message': 'User successfully registered!',
+                'user': serializer.data
+            }
 
-        return Response(return_message, status=status.HTTP_201_CREATED)
+            return Response(response, status=status_code)
 
 class LoginView(generics.CreateAPIView):
     serializer_class = LoginSerializer
@@ -43,7 +43,7 @@ class LoginView(generics.CreateAPIView):
                 'success': True,
                 'statusCode': status_code,
                 'message': 'You are successfully Loggedin',
-                'authUser': {
+                'authenticatedUser': {
                     'email': serializer.data['email'],
                 }
             }
