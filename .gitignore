@@ -1,3 +1,20 @@
-.env
+# C extensions
+*.so
+.vscode/
 
+# Environments
+.env
+.venv
+env/
+venv/
 virtual/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+.Python
+build/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/

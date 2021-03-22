@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+psycopg2 = "==2.8.6"
+requests = "*"
+django = "*"
+psycopg2-binary = "*"
+python-decouple = "*"
+djangorestframework = "*"
+drf-yasg = "*"
+djangorestframework-simplejwt = "*"
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

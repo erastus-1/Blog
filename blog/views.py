@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from .serializers import *
 
 #create your views here.
-
 class RegistrationApiView(generics.CreateAPIView):
     permission_classes = (AllowAny, )
     serializer_class = RegistrationSerializer
