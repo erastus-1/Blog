@@ -18,7 +18,7 @@ View a list of blogs posted by users.
 
 Create Posts that will be visible to everyone who logs in the application.
 
-Can view details any post.
+Can view details of all post.
 
 ## **Setup and Installation**
 
@@ -28,31 +28,33 @@ Navigate into the folder and install requirements
 
 cd blogger
 
-Install and activate Virtual
+#### **1. Install and activate Virtual**
 
-python3 -m venv virtual - source virtual/bin/activate
+- pipenv shell
 
-#### **Install Dependencies**
+- pipenv install django --skip-lock
 
-- pip install -r requirements.txt
+- pipenv install(pip install -r req)
+
+#### **2. Install Dependencies**
 
 - Setup Database
 
 - SetUp your database User,Password, Host then migrate
 
-- python manage.py makemigrations hood then Migrate
+- python manage.py makemigrations blog then Migrate
 
 - python manage.py migrate
 
-#### **Run the application**
+#### **3. Run the application**
 
-1) python manage.py runserver
+- python manage.py runserver
 
-2) Testing the application
+- Testing the application
 
-3) python manage.py test
+- python manage.py test
 
-4) Open the application on your browser 127.0.0.1:8000.
+- Open the application on your browser 127.0.0.1:8000.
 
 ### **Technology used**
 
