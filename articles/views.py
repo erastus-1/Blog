@@ -25,7 +25,7 @@ class ArticlePostView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):  
-        serializers = ArtcleSerializer(data=request.data)
+        serializers = ArticleSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
             return Article(serializers.data, status=status.HTTP_201_CREATED)

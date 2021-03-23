@@ -2,7 +2,7 @@ from .models import *
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
-#Add your serilivers here.
+#Add your serializers here.
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
        model = Article
