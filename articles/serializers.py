@@ -8,3 +8,5 @@ class ArticleSerializer(serializers.ModelSerializer):
        model = Article
        fields = "__all__" 
        read_only_fields = ('published_date', 'modified_date')
+
+    

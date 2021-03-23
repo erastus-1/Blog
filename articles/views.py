@@ -28,14 +28,13 @@ class ArticlePostView(generics.CreateAPIView):
         serializers = ArticleSerializer(data=request.data)
         if serializers.is_valid():
             serializers.save()
-            return Article(serializers.data, status=status.HTTP_201_CREATED)
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         article = self.get_article(pk)
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
     def put(self,request,pk):
         try:
@@ -49,3 +48,5 @@ class ArticlePostView(generics.CreateAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("Post not found")
+
+   
