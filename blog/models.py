@@ -44,7 +44,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.OneToOneField(User,db_index=True, on_delete=models.CASCADE, primary_key=True)
+    username = models.CharField(db_index=True, max_length=255, unique=False, default="default-username")
     email = models.EmailField(db_index=True, unique=True)
     photo = models.ImageField(blank=True)
     is_active = models.BooleanField(default=True)

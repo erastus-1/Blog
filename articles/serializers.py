@@ -1,6 +1,5 @@
 from .models import *
 from rest_framework import serializers
-from .models import Shopping
 from django.contrib.auth import authenticate
 
 #Add your serilivers here.
