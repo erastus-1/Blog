@@ -5,8 +5,8 @@ from blog.models import *
 
 # Create your models here.
 class Article(models.Model):
-    title = models.TextField(max_length =60)
-    post = models.CharField(max_length=255)
+    title = models.CharField(max_length =60)
+    post = models.TextField(max_length=255)
     image = models.ImageField(upload_to = 'articles/', blank=True)
     editor = models.ForeignKey(User,on_delete=models.CASCADE)
     published_date = models.DateTimeField(default=timezone.now)
