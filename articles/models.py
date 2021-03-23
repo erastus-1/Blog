@@ -9,7 +9,9 @@ class Article(models.Model):
     post = models.CharField(max_length=255)
     image = models.ImageField(upload_to = 'articles/', blank=True)
     editor = models.ForeignKey(User,on_delete=models.CASCADE)
-    pub_date = models.DateTimeField(auto_now_add=True)
+    published_date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(default=timezone.now)
+
     
 
     def __str__(self):
