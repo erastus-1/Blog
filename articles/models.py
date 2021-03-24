@@ -7,7 +7,7 @@ from blog.models import *
 # Create your models here.
 class Article(models.Model):
     title = models.CharField(max_length =60)
-    post = models.OneToOneField('article',max_length=255,on_delete=models.CASCADE,)
+    post = models.CharField('article',max_length=255)
     image = models.ImageField(upload_to = 'articles/', blank=True)
     tags = models.ManyToManyField('articles.Tags')
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="author")

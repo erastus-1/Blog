@@ -8,3 +8,11 @@ class ArticleSerializer(serializers.ModelSerializer):
        model = Article
        fields = "__all__" 
        read_only_fields = ('published_date', 'modified_date')
+
+class TagSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Tags
+        fields = ('tag',)
+
+    def to_representation(self, instance):
+        return instance.tag

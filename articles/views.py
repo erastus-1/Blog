@@ -48,3 +48,22 @@ class ArticlePostView(generics.CreateAPIView):
         article = self.get_article(pk)
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TagAPIView(generics.ListAPIView):
+    queryset = Tags.objects.all()
+    serializer_class = TagSerializers
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get(self, *args):
+        data = self.get_queryset()
+        serializer = self.serializer_class(data, many=True)
+
+        if data:
+            return Response({
+                'message': 'list_of_tags',
+                'tags': serializer.data
+            }, status=status.HTTP_200_OK)
+
+        return Response({
+            'message': 'tags_not_found',
+        }, status=status.HTTP_404_NOT_FOUND)
