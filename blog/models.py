@@ -45,7 +45,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(db_index=True, max_length=255, unique=False, default="default-username")
+    username = models.CharField(db_index=True, max_length=255, unique=True, default="default-username")
     email = models.EmailField(db_index=True, unique=True)
     photo = models.ImageField(blank=True)
     is_active = models.BooleanField(default=True)
@@ -63,8 +63,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles')
-    image = ImageField("image", blank=True, null=True, default='https://www.google.com/imgres?imgurl=https%3A%2F%2Fmiro')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    image = models.ImageField("image", blank=True, null=True, default='https://www.google.com/imgres?imgurl=https%3A%2F%2Fmiro')
     first_name = models.CharField(max_length=30,blank=True, null=True)
     last_name = models.CharField(max_length=50,blank=True, null=True)
     contact = models.PositiveSmallIntegerField(blank=False, null=True)
