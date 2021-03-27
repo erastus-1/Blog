@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework import status
+from rest_framework.generics import *
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.shortcuts import render
 from rest_framework.response import Response
@@ -51,7 +52,7 @@ class LoginApiView(generics.CreateAPIView):
 
             return Response(response, status=status_code)
 
-class ProfileApiView(generics.CreateAPIView):
+class ProfileApiView(RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfileSerializer
 
@@ -73,7 +74,7 @@ class ProfileApiView(generics.CreateAPIView):
                          {"message": 'profile success'}),
                         status=status.HTTP_200_OK)
 
-class UpdateProfileView(generics.CreateAPIView):
+class UpdateProfileView(UpdateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = UpdateProfileSerializer
     queryset = Profile.objects.all()
