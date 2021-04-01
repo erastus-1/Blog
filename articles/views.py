@@ -8,7 +8,7 @@ from .models import *
 import datetime as dt
 
 # Create your views here.
-class ArticleView(generics.CreateAPIView):
+class ArticleView(generics.ListAPIView):
     queryset= Article.objects.all()
     serializer_class= ArticleSerializer
     permission_classes = (AllowAny,)

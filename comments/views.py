@@ -8,7 +8,7 @@ from .models import *
 import datetime as dt
 
 # Create your views here.
-class CommentView(generics.CreateAPIView):
+class CommentView(generics.ListAPIView):
     queryset= Comment.objects.all()
     serializer_class= CommentSerializer
     permission_classes = (AllowAny,)
