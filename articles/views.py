@@ -8,18 +8,17 @@ from .models import *
 import datetime as dt
 
 # Create your views here.
-class ArticleView(generics.ListAPIView):
-    queryset= Article.objects.all()
-    serializer_class= ArticleSerializer
-    permission_classes = (AllowAny,)
+# class ArticleView(generics.DestroyAPIView):
+#     queryset= Article.objects.all()
+#     serializer_class= ArticleSerializer
+#     permission_classes = (AllowAny,)
 
-    def get(self, request, format=None):
-        all_articles = Article.objects.all()
-        serializers = ArticleSerializer(all_articles , many=True)
-        return Response(serializers.data)
+#     def delete(self, request, pk, format=None):
+#         article = self.get_article(pk)
+#         article.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class ArticlePostView(generics.CreateAPIView):
+class ArticlePostView(generics.ListCreateAPIView):
     queryset= Article.objects.all()
     serializer_class= ArticleSerializer
     permission_classes = (IsAuthenticated,)
@@ -43,11 +42,11 @@ class ArticlePostView(generics.CreateAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("Post not found")
-    
-    def delete(self, request, pk, format=None):
-        article = self.get_article(pk)
-        article.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def get(self, request, format=None):
+        all_articles = Article.objects.all()
+        serializers = ArticleSerializer(all_articles , many=True)
+        return Response(serializers.data)
 
 class TagAPIView(generics.ListAPIView):
     queryset = Tags.objects.all()

@@ -29,9 +29,14 @@ class CommentPostView(generics.CreateAPIView):
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk, format=None):
-        comment = self.get_comment(pk)
-        comment.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-   
+
+
+# class CommentApiView(generics.DestroyAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     serializer_class = CommentSerializer
+#     queryset = Comment.objects.all()
+
+#     def delete(self, request, pk, format=None):
+#         comment = self.check_comment(pk)
+#         comment.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
