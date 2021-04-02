@@ -31,12 +31,12 @@ class CommentPostView(generics.CreateAPIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# class CommentApiView(generics.DestroyAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     serializer_class = CommentSerializer
-#     queryset = Comment.objects.all()
+class CommentApiView(generics.DestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
 
-#     def delete(self, request, pk, format=None):
-#         comment = self.check_comment(pk)
-#         comment.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+    def delete(self, request, pk, format=None):
+        comment = self.get_object()
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

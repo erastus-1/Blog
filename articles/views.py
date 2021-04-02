@@ -7,16 +7,16 @@ from .serializers import *
 from .models import *
 import datetime as dt
 
-# Create your views here.
-# class ArticleView(generics.DestroyAPIView):
-#     queryset= Article.objects.all()
-#     serializer_class= ArticleSerializer
-#     permission_classes = (AllowAny,)
+#Create your views here.
+class ArticleView(generics.DestroyAPIView):
+    queryset= Article.objects.all()
+    serializer_class= ArticleSerializer
+    permission_classes = (AllowAny,)
 
-#     def delete(self, request, pk, format=None):
-#         article = self.get_article(pk)
-#         article.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+    def delete(self, request, pk, format=None):
+        article = self.get_object()
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ArticlePostView(generics.ListCreateAPIView):
     queryset= Article.objects.all()
